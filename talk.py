@@ -52,13 +52,13 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 1
 
 # Echo cancellation parameters
-ECHO_SUPPRESSION_FACTOR = 3.0  # High suppression when AI is speaking
+ECHO_SUPPRESSION_FACTOR = 2.0  # Higher suppression when AI is speaking
 MIN_SPEECH_DURATION = 0.2      # Faster response for interruptions
-BACKGROUND_NOISE_SAMPLES = 30   # Samples to calculate background noise
+BACKGROUND_NOISE_SAMPLES = 30   # Samples to calculate background noise (reduced)
 MAX_NOISE_MULTIPLIER = 3.0     # Maximum multiplier for background noise
-INTERRUPTION_THRESHOLD_MULTIPLIER = 1.8  # Balanced threshold for interruptions
-INTERRUPTION_MIN_DURATION = 0.6  # Require 0.6 seconds of sustained speech
-INTERRUPTION_MIN_LEVEL = 1500   # Minimum absolute level for interruption (reduced from 2000)
+INTERRUPTION_THRESHOLD_MULTIPLIER = 1.5  # HIGHER threshold for interruptions (was 0.8)
+INTERRUPTION_MIN_DURATION = 0.8  # Require sustained speech for interruption
+INTERRUPTION_MIN_LEVEL = 1000   # Minimum absolute level for interruption
 
 # Function to open a file and return its contents as a string
 def open_file(filepath):
@@ -235,12 +235,12 @@ class AudioLevelMonitor:
         else:
             threshold = self.background_noise_level
         
-        # For interruptions, use a HIGHER threshold but not too high
+        # For interruptions, use a HIGHER threshold and absolute minimum
         if for_interruption:
             threshold = max(
                 threshold * INTERRUPTION_THRESHOLD_MULTIPLIER,
                 INTERRUPTION_MIN_LEVEL,
-                self.background_noise_level * 2.0  # Reduced from 2.5
+                self.background_noise_level * 2.5  # Much higher than background
             )
         # Reduce sensitivity when AI is speaking to prevent echo (but not for interruptions)
         elif is_speaking.is_set() or audio_playback_active.is_set():
@@ -256,7 +256,7 @@ class AudioLevelMonitor:
         if (is_speaking.is_set() or audio_playback_active.is_set()) and for_interruption:
             if is_voice:
                 print(f"🔥 INTERRUPTION! Voice level: {self.current_level:.1f} > Threshold: {threshold:.1f}")
-            elif self.current_level > self.background_noise_level * 1.2:  # Only show significant noise
+            elif self.current_level > self.background_noise_level:
                 print(f"🔇 Noise detected but below interruption threshold: {self.current_level:.1f} < {threshold:.1f}")
         
         return is_voice
@@ -341,31 +341,9 @@ def continuous_audio_capture():
                 # Enhanced voice activity detection
                 has_voice = audio_monitor.is_voice_detected()
                 
-                # If AI is speaking and user speaks, interrupt immediately with higher threshold
+                # If AI is speaking and user speaks, interrupt immediately with lower threshold
                 if (is_speaking.is_set() or audio_playback_active.is_set()):
                     interruption_detected = audio_monitor.is_voice_detected(for_interruption=True)
-                    
-                    # Debug: Show what thresholds are being used
-                    current_level = audio_monitor.current_level
-                    if audio_monitor.is_calibrated:
-                        interruption_threshold = max(
-                            audio_monitor.background_noise_level * INTERRUPTION_THRESHOLD_MULTIPLIER,
-                            INTERRUPTION_MIN_LEVEL,
-                            audio_monitor.background_noise_level * 2.5
-                        )
-                        
-                        # Only show significant noise during AI speech
-                        if current_level > audio_monitor.background_noise_level * 1.2:
-                            if interruption_detected:
-                                print(f"🔥 POTENTIAL INTERRUPTION: {current_level:.1f} > {interruption_threshold:.1f}")
-                            else:
-                                print(f"🔇 Audio below interruption threshold: {current_level:.1f} < {interruption_threshold:.1f}")
-                        
-                        # Show progress toward interruption
-                        if interruption_detected:
-                            progress = interruption_speech_chunks / min_interruption_chunks * 100
-                            print(f"📈 Interruption progress: {progress:.1f}% ({interruption_speech_chunks}/{min_interruption_chunks} chunks)")
-                    
                     if interruption_detected:
                         interruption_speech_chunks += 1
                         

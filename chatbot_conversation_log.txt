@@ -111,3 +111,27 @@ User: Hello.
 Julie: Hi there! How can I assist you today? If you need any advice or have any questions, feel free to ask. I'm always here to help.
 User: Hello, who is the creator of Bitcoin?
 Julie:  The creator of Bitcoin is Satoshi Nakamoto, an anonymous individual or group using the pseudonym Satoshi Nakamoto. They published a whitepaper on October 31, 2008, introducing the concept of decentralized digital currency and proposing the first blockchain technology.
+User: How atom works
+Julie:  Atoms are the basic building blocks of all matter in the universe, including everything around us like air, water, and even ourselves. Atoms consist of three main subatomic particles: protons, neutrons, and electrons. Here's how they work:
+
+1. Protons and Neutrons: These two particles are found in the nucleus at the center of an atom. Protons have a positive electrical charge, while neutrons have no charge. The number of protons in an atom determines what element it is. For example, if an atom has one proton, it is hydrogen; if it has two protons, it is helium.
+
+2. Electrons: These negatively charged particles move around the nucleus in specific paths called electron shells or orbitals. The number of electrons in an atom is equal to the number of protons, and they balance each other out to maintain a neutral charge overall.
+
+3. Atomic Structure: An atom can be visualized as a tiny nucleus (containing protons and neutrons) surrounded by a cloud-like region called electron cloud, where electrons are found. The outermost shell of electrons determines the chemical behavior of an element.
+
+4. Bonding: Atoms bond together to form molecules or compounds. This happens when atoms share electrons in a way that benefits both atoms. There are different types of bonds like covalent (sharing electrons), ionic (gaining and losing electrons), and metallic (electrons shared through free movement).
+
+Understanding how atoms work is fundamental to chemistry, physics, and our overall understanding of the universe.
+User: You
+Julie:  Hello! How can I assist you today?
+User: Hello, how atom works.
+Julie:  An atom is the smallest unit of matter that contains the same number of protons in its nucleus. It consists of three main parts: the nucleus, electrons, and neutrons. The nucleus is made up of protons and neutrons, while electrons orbit around it. Atoms are neutral as they contain an equal and opposite number of negatively charged electrons and positively charged protons, which prevents them from clumping together or repelling each other.
+User: Okay. So our system works.
+Julie:  Yes, it does! Our system is designed to help answer questions and provide information on various topics. If you have any more questions or need further clarification, please feel free to ask!
+User: Yeah, I want to know how solar system works.
+Julie:  A solar system is a collection of celestial bodies that orbit around a central star, which in our case is the Sun. Our solar system consists of the Sun and eight planets (Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune), along with other objects such as moons, asteroids, comets, and various dust particles.
+
+The planets in our solar system move in elliptical orbits around the Sun. This movement is due to a force called gravity, which attracts two objects towards each other. The Sun's immense mass causes it to have a strong gravitational pull that keeps the planets from drifting off into space. Additionally, the planets' own motion generates a velocity that helps them stay in their orbits as well.
+
+Apart from the planets, our solar system has several other celestial objects like moons, asteroids, comets, and dust particles, which are influenced by gravity as well. For example, Earth's moon revolves around it due to gravitational forces between the two objects.
